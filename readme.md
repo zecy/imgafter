@@ -5,7 +5,6 @@
 
 ## 它们用来
 - 重命名图片 rename.py
-- 扁平化图片集 flatten.py
 - 打包图片集 zip.py
 
 ## 使用它们你需要
