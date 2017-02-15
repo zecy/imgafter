@@ -1,4 +1,4 @@
-#! _*_ coding: utf8 -*-
+#! _*_ coding: utf-8 -*-
 #! /Usr/local/bin/python3
 """
     本脚本用于对图片集进行重命名包括
@@ -11,12 +11,15 @@ import os
 import sys
 import re
 
-def parseimgs():
-    filenames = next(os.walk('.'))[2]
-    print(filenames)
+suffix = re.compile('.*\.(jpg|png)')
 
-def main():
-    parseimgs()
+def parseimgs(path):
+    files  = next(os.walk(path))[2]
+    images = [f for f in files if suffix.match(f)]
+    return images
+
+def main(path):
+    print(parseimgs(path))
 
 if __name__ == '__main__':
-    main()
+    main('.')
