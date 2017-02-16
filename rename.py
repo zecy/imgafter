@@ -96,15 +96,30 @@ def renamemap(path, map_file_name='map'):
         with open(map_file_name, 'r') as file_content:
             map_content = file_content.read()
     except FileNotFoundError:
-        print('无法打开文件\n' +
-              '请使用默认对译表名称`map`\n' +
-              '或正确指定文件名： -m <map_file_name>')
+        print("\n    [错误]\n" +
+              "    无法打开文件\n" +
+              "    请使用默认对译表名称`map`\n" +
+              "    或正确指定文件名：-m <map_file_name>")
+        return
 
     try:
         src_dst_list = map_content.split('\n')
 
         map_images = [x.split(' ')[0] for x in src_dst_list]
         dir_images = parseimgs(path)
+        if check_map_format(src_dst_list) == 'ok':
+            map_images = [x.split(' ')[0] for x in src_dst_list]
+            dir_images = parseimgs(path)
+        else:
+            print(
+                "\n[格式错误]\n" +
+                "对译表每行为一个命名对，通过空格分隔（不包括行号）：\n" +
+                "1  src1.jpg dst1.jpg\n" +
+                "2  src2.png dst2.png\n\n" +
+                "以下行格式存在问题：\n\n    " +
+                "\n    ".join(check_map_format(src_dst_list))
+            )
+            return
 
         if set(map_images) == set(dir_images):
             for src_dst in src_dst_list:
@@ -118,13 +133,10 @@ def renamemap(path, map_file_name='map'):
             print(map_dir_compare(map_images, dir_images, map_file_name))
             return
 
-    except Exception as err:
+    except FileNotFoundError as err:
         print(err)
         print("出错了，检查 `" + map_file_name + "` 文件的格式是否正确")
         print("`" + map_file_name + "` 应为纯文本文件")
-        print("对译表每行为一个命名对，通过空格分隔（不包括行号）：\n" +
-              "1  src1 dst1\n" +
-              "2  src2 dst2")
 
 
 def main(path='.'):
