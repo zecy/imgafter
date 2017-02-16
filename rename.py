@@ -17,14 +17,17 @@ def image_pat():
 def parseimgs(path):
     """ 分析 path 中有多少图片，返回图片 list """
     files = next(os.walk(path))[2]
-    images = [f for f in files if image_pat.match(f)]
+    images = [f for f in files if image_pat().match(f)]
+    if len(images) == 0:
+        print("错误：没有图片")
+        return "err"
     return images
 
 
 def leftpad(src, length):
     """ 根据 length 为 src 左方补零 """
-    name = image_pat.match(src).group(1)
-    suffix = image_pat.match(src).group(2)
+    name = image_pat().match(src).group(1)
+    suffix = image_pat().match(src).group(2)
     return name.rjust(length, '0') + '.' + suffix
 
 
