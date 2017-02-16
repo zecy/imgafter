@@ -5,19 +5,17 @@ import sys
 import getopt
 import rename
 
-script_name = sys.argv[0]  # 本脚本的文件名
+
+def script_name():
+    return sys.argv[0].split('/')[-1]  # 本脚本的文件名
 
 
-def print_help():
-    print("用法：" + script_name + " <命令名> [-m <对译表名称>] [-d <目标路径>]\n" +
-          "      -m : 文件名对译表，默认为 `map` ，一个无后缀名的纯文本文件\n" +
-          "      -d : 目标文件夹，默认为当前名录\n" +
-          "      默认情况下不需要设置上面两个参数")
+def working_dir(path='.'):
+    return path  # 脚本工作路径，默认为调用本脚本的文件夹
 
 
-def print_error():
-    print("参数错误，通过`" + script_name + " -h` 获取帮助")
-
+def error_message():
+    return "参数错误，通过`" + script_name() + " -h` 获取帮助"
 
 def main(argv):
     """ 主函数 """

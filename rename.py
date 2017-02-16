@@ -9,7 +9,9 @@
 import os
 import re
 
-image_pat = re.compile(r'(.*)\.(jpg|png)')
+
+def image_pat():
+    return re.compile(r'(.*)\.(jpg|png)')
 
 
 def parseimgs(path):
