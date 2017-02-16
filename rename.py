@@ -98,7 +98,7 @@ def renamemap(path, map_file_name='map'):
         return
 
     try:
-        src_dst_list = map_content.split('\n')
+        src_dst_list = map_content.split('\n')[:-1]  # 忽略末尾换行
 
         if check_map_format(src_dst_list) == 'ok':
             map_images = [x.split(' ')[0] for x in src_dst_list]
