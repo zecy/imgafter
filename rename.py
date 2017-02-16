@@ -1,13 +1,29 @@
 # _*_ coding: utf-8 -*-
 """
-    本脚本用于对 ** 当前 ** 目录下的图片集进行重命名，功能包括
-    1. 补零               @leftpad      DONE
-    2. 扁平化图片集       @flatten      DONE
-    3. 通过对译表重命名   @renamemap    TODO
+    本脚本用于对指定目录下的图片集进行重命名，功能包括
+    1. 补零               @leftpad
+    2. 扁平化图片集       @flatten
+    3. 通过对译表重命名   @renamemap
 """
 
 import os
 import re
+
+
+def main():
+    """ 默认运行的主函数 """
+    print("""
+        请通过 main.py 进行调用。本模块包括以下三个方法：
+
+        .leftpadall(path) :
+            为 path 中所有图片文件名补零。
+
+        .flatten(path) :
+            分析 path 下有多少个子目录，为子目录中所有图片补零，
+            并添加上文件夹名前缀，提出到父目录。
+
+        .renamemap(path, map_file_name='map') :
+            通过对译表重命名 path 下所有图片文件。""")
 
 
 def image_pat():
