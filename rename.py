@@ -34,11 +34,16 @@ def padnum(arr):
     return len(str(len(arr)))
 
 
-def leftpadall(arr):
+def leftpadall(path):
     """ 把 arr 中所有文件补零 """
-    for src in arr:
-        dst = leftpad(src, padnum(arr))
-        os.replace(src, dst)
+    images = parseimgs(path)
+    img_count = len(images)
+    length = padnum(images)
+    if images != "err":
+        for src in images:
+            dst = leftpad(src, length)
+            os.replace(src, dst)
+    print("完成。\n共处理 " + str(img_count) + " 张图片")
 
 
 def flatten(path):
@@ -46,11 +51,18 @@ def flatten(path):
         为子目录中所有图片补零，并添加上文件夹名前缀，
         提出到父目录 """
     dirs = next(os.walk(path))[1]
+
+    dir_count = len(dirs)
+    img_count = 0
+
     for folder in dirs:
         imgs = parseimgs(folder)
         for img in imgs:
             dst = folder + '-' + leftpad(img, padnum(imgs))
             os.replace(folder + '/' + img, dst)
+            img_count += 1
+
+    print("完成。\n共处理 " + str(dir_count) + "个目录，" + str(img_count) + " 张图片。")
 
 
 def renamemap(path, mapfilename='map'):
