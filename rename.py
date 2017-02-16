@@ -54,7 +54,7 @@ def padnum(arr):
 
 
 def leftpadall(path):
-    """ 把 arr 中所有文件补零 """
+    """ 为 path 中所有图片文件名补零 """
     images = parseimgs(path)
     img_count = len(images)
     length = padnum(images)
@@ -85,12 +85,7 @@ def flatten(path):
 
 
 def renamemap(path, map_file_name='map'):
-    """ 通过对译表重命名
-        对译表默认名称为 map，是一个无扩展名的纯文本文件
-        对译表每行为一个命名对，通过空格分隔（不包括行号）：
-        1  src1 dst1
-        2  src2 dst2
-    """
+    """ 通过对译表重命名 """
 
     try:
         with open(map_file_name, 'r') as file_content:
@@ -139,9 +134,6 @@ def renamemap(path, map_file_name='map'):
         print("`" + map_file_name + "` 应为纯文本文件")
 
 
-def main(path='.'):
-    """ 默认运行的主函数 """
-    renamemap(path)
 def map_dir_compare(map_list, dir_list, map_file_name):
     in_dir = list(set(dir_list) - set(map_list))
     in_map = list(set(map_list) - set(dir_list))
