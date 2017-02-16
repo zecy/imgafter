@@ -68,24 +68,22 @@ def flatten(path):
     print("完成。\n共处理 " + str(dir_count) + "个目录，" + str(img_count) + " 张图片。")
 
 
-def renamemap(path, mapfilename='map'):
+def renamemap(path, map_file_name='map'):
     """ 通过对译表重命名
         对译表默认名称为 map，是一个无扩展名的纯文本文件
         对译表每行为一个命名对，通过空格分隔（不包括行号）：
         1  src1 dst1
         2  src2 dst2
     """
-    mapcontent = []
 
     try:
-        with open(mapfilename, 'r') as file_content:
-            mapcontent = file_content.readlines()
+        with open(map_file_name, 'r') as file_content:
+            map_content = file_content.read()
     except FileNotFoundError:
         print('无法打开文件\n' +
               '请使用默认对译表名称`map`\n' +
               '或正确指定文件名： -m <map_file_name>')
 
-    print(mapcontent)
 
 
 def main(path='.'):
