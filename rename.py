@@ -115,6 +115,14 @@ def renamemap(path, map_file_name='map'):
                       )
             return
 
+    except Exception as err:
+        print(err)
+        print("出错了，检查 `" + map_file_name + "` 文件的格式是否正确")
+        print("`" + map_file_name + "` 应为纯文本文件")
+        print("对译表每行为一个命名对，通过空格分隔（不包括行号）：\n" +
+              "1  src1 dst1\n" +
+              "2  src2 dst2")
+
 
 def main(path='.'):
     """ 默认运行的主函数 """
