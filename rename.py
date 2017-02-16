@@ -174,5 +174,23 @@ def map_dir_compare(map_list, dir_list, map_file_name):
 
     return err_msg
 
+
+def check_map_format(map_lines_list):
+    map_pattern = re.compile(r"^.*?\.(jpg|png) .*?\1$")
+
+    err_line_content = []
+    lines_count = len(map_lines_list)
+
+    for i in range(lines_count):
+        line = map_lines_list[i]
+        if not map_pattern.match(line):
+            err_msg = str(i + 1).rjust(len(str(lines_count))) + " | " + line
+            err_line_content.append(err_msg)
+
+    if len(err_line_content) == 0:
+        return 'ok'
+    else:
+        return err_line_content
+
 if __name__ == '__main__':
     main()
