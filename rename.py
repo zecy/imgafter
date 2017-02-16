@@ -114,33 +114,8 @@ def renamemap(path, map_file_name='map'):
             print("共处理 " + str(rename_count) + " 条记录")
         # 磁盘和对译表内容不匹配
         else:
-            in_dir = list(set(dir_images) - set(map_images))
-            in_map = list(set(map_images) - set(dir_images))
-
-            only_dir = "    " + "\n    ".join(in_dir) + '\n'
-            only_map = "    " + "\n    ".join(in_map) + '\n'
-
-            if in_map == []:
-                print("以下文件在磁盘中 *存在* ，" +
-                      "但 *未在* `" + map_file_name + "` 中，\n" +
-                      "请检查你的 `" + map_file_name + "` 文件：\n\n" +
-                      only_dir)
-            elif in_dir == []:
-                print("以下文件在磁盘中 *不存在* ，" +
-                      "但 *记录在* `" + map_file_name + "` 中，\n" +
-                      "请确保你下载完了全部的文件，"
-                      "或检查你的 `" + map_file_name + "` 文件：\n\n" +
-                      only_map)
-            else:
-                print("以下文件在磁盘中 *不存在*，" +
-                      "但 *出现* 在 `" + map_file_name + "` 文件中：\n" +
-                      only_map + '\n' +
-                      "以下文件在磁盘中 *存在*，" +
-                      "但 *不在* `" + map_file_name + "` 文件中：\n\n" +
-                      only_dir +
-                      "请确保你下载完了全部的文件，" +
-                      "或检查你的 `" + map_file_name + "` 文件：\n\n"
-                      )
+            # 磁盘和对译表内容不匹配
+            print(map_dir_compare(map_images, dir_images, map_file_name))
             return
 
     except Exception as err:
@@ -155,6 +130,49 @@ def renamemap(path, map_file_name='map'):
 def main(path='.'):
     """ 默认运行的主函数 """
     renamemap(path)
+def map_dir_compare(map_list, dir_list, map_file_name):
+    in_dir = list(set(dir_list) - set(map_list))
+    in_map = list(set(map_list) - set(dir_list))
+
+    map_file = map_file_name
+
+    only_dir_file_count = len(in_dir)
+    only_map_file_count = len(in_map)
+
+    only_dir_files = "    " + "\n    ".join(in_dir) + '\n'
+    only_map_files = "    " + "\n    ".join(in_map) + '\n'
+
+    if in_map == []:
+        err_msg = (
+            "\n[错误]\n" +
+            "以下 " + str(only_dir_file_count) + " 个文件在磁盘中 *存在* ，" +
+            "但 *未在* `" + map_file + "` 中，\n" +
+            "请检查你的 `" + map_file + "` 文件：\n\n" +
+            only_dir_files
+        )
+    elif in_dir == []:
+        err_msg = (
+            "\n[错误]\n" +
+            "以下 " + str(only_map_file_count) + " 个文件在磁盘中 *不存在* ，" +
+            "但 *记录在* `" + map_file + "` 中，\n" +
+            "请确保你下载完了全部的文件，"
+            "或检查你的 `" + map_file + "` 文件：\n\n" +
+            only_map_files
+        )
+    else:
+        err_msg = (
+            "\n[错误]\n" +
+            "以下 " + str(only_map_file_count) + " 个文件在磁盘中 *不存在*，" +
+            "但 *出现* 在 `" + map_file + "` 文件中：\n" +
+            only_map_files + "\n" +
+            "以下 " + str(only_dir_file_count) + " 个文件在磁盘中 *存在*，" +
+            "但 *不在* `" + map_file + "` 文件中：\n\n" +
+            only_dir_files + "\n" +
+            "请确保你下载完了全部的文件，" +
+            "或检查你的 `" + map_file + "` 文件：\n\n"
+        )
+
+    return err_msg
 
 if __name__ == '__main__':
     main()
