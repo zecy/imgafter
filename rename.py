@@ -84,6 +84,18 @@ def renamemap(path, map_file_name='map'):
               '请使用默认对译表名称`map`\n' +
               '或正确指定文件名： -m <map_file_name>')
 
+    try:
+        src_dst_list = map_content.split('\n')
+
+        map_images = [x.split(' ')[0] for x in src_dst_list]
+        dir_images = parseimgs(path)
+
+        if set(map_images) == set(dir_images):
+            for src_dst in src_dst_list:
+                src = src_dst.split(' ')[0]
+                dst = src_dst.split(' ')[1]
+                os.replace(src, dst)
+            print("共处理 " + str(rename_count) + " 条记录")
         # 磁盘和对译表内容不匹配
         else:
             in_dir = list(set(dir_images) - set(map_images))
