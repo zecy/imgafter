@@ -84,6 +84,36 @@ def renamemap(path, map_file_name='map'):
               '请使用默认对译表名称`map`\n' +
               '或正确指定文件名： -m <map_file_name>')
 
+        # 磁盘和对译表内容不匹配
+        else:
+            in_dir = list(set(dir_images) - set(map_images))
+            in_map = list(set(map_images) - set(dir_images))
+
+            only_dir = "    " + "\n    ".join(in_dir) + '\n'
+            only_map = "    " + "\n    ".join(in_map) + '\n'
+
+            if in_map == []:
+                print("以下文件在磁盘中 *存在* ，" +
+                      "但 *未在* `" + map_file_name + "` 中，\n" +
+                      "请检查你的 `" + map_file_name + "` 文件：\n\n" +
+                      only_dir)
+            elif in_dir == []:
+                print("以下文件在磁盘中 *不存在* ，" +
+                      "但 *记录在* `" + map_file_name + "` 中，\n" +
+                      "请确保你下载完了全部的文件，"
+                      "或检查你的 `" + map_file_name + "` 文件：\n\n" +
+                      only_map)
+            else:
+                print("以下文件在磁盘中 *不存在*，" +
+                      "但 *出现* 在 `" + map_file_name + "` 文件中：\n" +
+                      only_map + '\n' +
+                      "以下文件在磁盘中 *存在*，" +
+                      "但 *不在* `" + map_file_name + "` 文件中：\n\n" +
+                      only_dir +
+                      "请确保你下载完了全部的文件，" +
+                      "或检查你的 `" + map_file_name + "` 文件：\n\n"
+                      )
+            return
 
 
 def main(path='.'):
