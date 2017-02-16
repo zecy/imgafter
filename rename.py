@@ -88,7 +88,7 @@ def renamemap(path, map_file_name='map'):
 
 def main(path='.'):
     """ 默认运行的主函数 """
-    flatten(path)
+    renamemap(path)
 
 if __name__ == '__main__':
     main()
