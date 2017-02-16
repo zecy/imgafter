@@ -119,8 +119,7 @@ def renamemap(path, map_file_name='map'):
                 src = src_dst.split(' ')[0]
                 dst = src_dst.split(' ')[1]
                 os.replace(src, dst)
-            print("共处理 " + str(rename_count) + " 条记录")
-        # 磁盘和对译表内容不匹配
+            print("共处理 " + str(len(dir_images)) + " 条记录")
         else:
             # 磁盘和对译表内容不匹配
             print(map_dir_compare(map_images, dir_images, map_file_name))
