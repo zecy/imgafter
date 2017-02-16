@@ -75,6 +75,12 @@ def command_switcher(command_bundle):
         rename.leftpadall(command_dir)
     if command_name == "flatten":
         rename.flatten(command_dir)
+    if command_name == "map":
+        print(command_mapname)
+        if command_mapname == "":
+            rename.renamemap(command_dir)
+        else:
+            rename.renamemap(command_dir, command_mapname)
 
 
 def exe_command(argv):
