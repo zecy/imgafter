@@ -185,13 +185,13 @@ def map_dir_difference(map_list, dir_list, map_file_name):
             "请确保你下载完了全部的文件，" +
             "或检查你的 `" + map_file + "` 文件：\n\n"
         )
-
     return err_msg
 
 
 def check_map_format(map_lines_list):
-    map_pattern = re.compile(r"^.*?\.(jpg|png) .*?\1$")
     ''' 检查对译表格式是否正确 '''
+    img_suffix = '|'.join(img_pat()['nodot'])
+    map_pattern = re.compile(r"^.*?\.(" + img_suffix + r") .*?\1$")
 
     err_line_content = []
     lines_count = len(map_lines_list)
