@@ -11,7 +11,7 @@ import re
 
 
 def main():
-    """ 默认运行的主函数 """
+    ''' 默认运行的主函数 '''
     print("""
         请通过 main.py 进行调用。本模块包括以下三个方法：
 
@@ -31,7 +31,7 @@ def image_pat():
 
 
 def parseimgs(path):
-    """ 分析 path 中有多少图片，返回图片 list """
+    ''' 分析 path 中有多少图片，返回图片 list '''
     files = next(os.walk(path))[2]
     images = [f for f in files if image_pat().match(f)]
     if len(images) == 0:
@@ -41,9 +41,9 @@ def parseimgs(path):
 
 
 def leftpad(src, length):
-    """ 根据 length 为 src 左方补零 """
     name = image_pat().match(src).group(1)
     suffix = image_pat().match(src).group(2)
+    ''' 根据 length 为 src 左方补零 '''
     return name.rjust(length, '0') + '.' + suffix
 
 
@@ -132,6 +132,7 @@ def renamemap(path, map_file_name='map'):
 
 
 def map_dir_compare(map_list, dir_list, map_file_name):
+    ''' 列出两个列表不一致的部分 '''
     in_dir = list(set(dir_list) - set(map_list))
     in_map = list(set(map_list) - set(dir_list))
 
@@ -178,6 +179,7 @@ def map_dir_compare(map_list, dir_list, map_file_name):
 
 def check_map_format(map_lines_list):
     map_pattern = re.compile(r"^.*?\.(jpg|png) .*?\1$")
+    ''' 检查对译表格式是否正确 '''
 
     err_line_content = []
     lines_count = len(map_lines_list)
