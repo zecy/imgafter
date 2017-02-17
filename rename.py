@@ -37,12 +37,15 @@ def img_pat():
     }
 
 
+def is_img(file_name):
+    ''' 判断文件是否图片，返回 True 或 False '''
+    return file_name.endswith(img_pat()['dot'])
 
 
 def parseimgs(path):
     ''' 分析 path 中有多少图片，返回图片 list '''
     files = next(os.walk(path))[2]
-    images = [f for f in files if image_pat().match(f)]
+    images = [f for f in files if is_img(f)]
     if len(images) == 0:
         print("错误：没有图片")
         return "err"
