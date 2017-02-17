@@ -26,8 +26,17 @@ def main():
             通过对译表重命名 path 下所有图片文件。""")
 
 
-def image_pat():
-    return re.compile(r'(.*)\.(jpg|png)')
+def img_pat():
+    ''' 返回图片后缀名
+    img_pat()['dot'] = ('.jpg','.png',...)
+    img_pat()['nodot'] = ('jpg','png',...)
+    '''
+    return{
+        "dot": ('.jpg', '.jpeg', '.png', '.bmp', '.tif'),
+        "nodot": ('jpg', 'jpeg', 'png', 'bmp', 'tif')
+    }
+
+
 
 
 def parseimgs(path):
