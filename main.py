@@ -4,6 +4,7 @@
 import sys
 import getopt
 import rename
+import zipimgs
 
 
 def script_name():
@@ -25,6 +26,8 @@ def help_message():
             "      flatten ：为当前目录下子文件夹中图片添加子文件夹名称为前缀，\n" +
             "                并提到当前目录。\n\n" +
             "      map     ：依据对译表对当前目录下的图片文件进行重命名。\n\n" +
+            "      zip     ：打包当前目录下所有图片，并把压缩包移到上一级目录。\n" +
+            "                压缩包名称为目录名称。"
             "      <参数>\n\n" +
             "      -m : 文件名对译表，默认为 `map` ，一个无后缀名的纯文本文件\n" +
             "      -d : 目标文件夹，默认为当前名录\n\n" +
@@ -81,6 +84,8 @@ def command_switcher(command_bundle):
             rename.renamemap(command_dir)
         else:
             rename.renamemap(command_dir, command_mapname)
+    if command_name == "zip":
+        zipimgs.zip_cur_imgs()
 
 
 def exe_command(argv):
