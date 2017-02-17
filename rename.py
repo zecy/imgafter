@@ -53,9 +53,10 @@ def parseimgs(path):
 
 
 def leftpad(src, length):
-    name = image_pat().match(src).group(1)
-    suffix = image_pat().match(src).group(2)
     ''' 根据 length 为 src 左方补零 '''
+    name_suffix = src.split('.')
+    name = ".".join(name_suffix[0: -1])
+    suffix = name_suffix[-1]
     return name.rjust(length, '0') + '.' + suffix
 
 
