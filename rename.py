@@ -135,7 +135,7 @@ def renamemap(path, map_file_name='map'):
             print("共处理 " + str(len(dir_images)) + " 条记录")
         else:
             # 磁盘和对译表内容不匹配
-            print(map_dir_compare(map_images, dir_images, map_file_name))
+            print(map_dir_difference(map_images, dir_images, map_file_name))
             return
 
     except FileNotFoundError:
@@ -143,7 +143,7 @@ def renamemap(path, map_file_name='map'):
         print("`" + map_file_name + "` 应为纯文本文件")
 
 
-def map_dir_compare(map_list, dir_list, map_file_name):
+def map_dir_difference(map_list, dir_list, map_file_name):
     ''' 列出两个列表不一致的部分 '''
     in_dir = list(set(dir_list) - set(map_list))
     in_map = list(set(map_list) - set(dir_list))
