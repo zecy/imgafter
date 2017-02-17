@@ -138,8 +138,7 @@ def renamemap(path, map_file_name='map'):
             print(map_dir_compare(map_images, dir_images, map_file_name))
             return
 
-    except FileNotFoundError as err:
-        print(err)
+    except FileNotFoundError:
         print("出错了，检查 `" + map_file_name + "` 文件的格式是否正确")
         print("`" + map_file_name + "` 应为纯文本文件")
 
