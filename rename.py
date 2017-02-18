@@ -1,9 +1,16 @@
 # _*_ coding: utf-8 -*-
 """
-    本脚本用于对指定目录下的图片集进行重命名，功能包括
-    1. 补零               @leftpad
-    2. 扁平化图片集       @flatten
-    3. 通过对译表重命名   @renamemap
+本脚本用于对指定目录下的图片集进行重命名，请通过 ``imgafter.py`` 进行调用。
+
+    @leftpadall(path) :
+        为 path 中所有图片文件名补零。
+
+    @flatten(path) :
+        分析 path 下有多少个子目录，为子目录中所有图片补零，
+        并添加上文件夹名前缀，提出到父目录。
+
+    @renamemap(path, map_file_name='map') :
+        通过对译表重命名 path 下所有图片文件。
 """
 
 import os
@@ -12,25 +19,12 @@ import basefunc
 
 
 def main():
-    ''' 默认运行的主函数 '''
-    print("""
-        请通过 main.py 进行调用。本模块包括以下三个方法：
-
-        .leftpadall(path) :
-            为 path 中所有图片文件名补零。
-
-        .flatten(path) :
-            分析 path 下有多少个子目录，为子目录中所有图片补零，
-            并添加上文件夹名前缀，提出到父目录。
-
-        .renamemap(path, map_file_name='map') :
-            通过对译表重命名 path 下所有图片文件。""")
-
-
+    """ 默认运行的主函数 """
+    print(__doc__)
 
 
 def leftpad(src, length):
-    ''' 根据 length 为 src 左方补零 '''
+    """ 根据 length 为 src 左方补零 """
     name_suffix = src.split('.')
     name = ".".join(name_suffix[0: -1])
     suffix = name_suffix[-1]
@@ -38,14 +32,17 @@ def leftpad(src, length):
 
 
 def padnum(arr):
-    """ 计算需补零的个数
-        (计算长度 (转为str (数组的长度，等同于最大的数)))"""
+    """
+    计算需补零的个数
+
+        (计算长度 (转为str (数组的长度，等同于最大的数)))
+    """
     return len(str(len(arr)))
 
 
 def leftpadall(path):
     """ 为 path 中所有图片文件名补零 """
-    images = parseimgs(path)
+    images = basefunc.parseimgs(path)
     img_count = len(images)
     length = padnum(images)
     if images != "err":
@@ -56,16 +53,18 @@ def leftpadall(path):
 
 
 def flatten(path):
-    """ 分析 path 下有多少个子目录，
-        为子目录中所有图片补零，并添加上文件夹名前缀，
-        提出到父目录 """
+    """
+    扁平化图片集
+
+    分析 path 下有多少个子目录。为子目录中所有图片补零，并添加上文件夹名前缀，提出到父目录。
+    """
     dirs = next(os.walk(path))[1]
 
     dir_count = len(dirs)
     img_count = 0
 
     for folder in dirs:
-        imgs = parseimgs(folder)
+        imgs = basefunc.parseimgs(folder)
         for img in imgs:
             dst = folder + '-' + leftpad(img, padnum(imgs))
             os.replace(folder + '/' + img, dst)
@@ -121,7 +120,7 @@ def renamemap(path, map_file_name='map'):
 
 
 def map_dir_difference(map_list, dir_list, map_file_name):
-    ''' 列出两个列表不一致的部分 '''
+    """ 列出两个列表不一致的部分 """
     in_dir = list(set(dir_list) - set(map_list))
     in_map = list(set(map_list) - set(dir_list))
 
