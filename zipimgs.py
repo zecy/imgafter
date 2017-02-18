@@ -26,9 +26,11 @@ def zip_cur_imgs():
             for img in cur_imgs:
                 zf.write(img)
         os.rename(zip_file_name, "../" + zip_file_name)
-        print('压缩完成。')
-    except Exception as err:
-        print(err)
+        print("`" + zip_file_name + "` 压缩完成，" +
+              "并已移动到 `" + parent_dir_name() + "` 目录下。")
+    except zipfile.BadZipfile as err:
+        print("压缩文件错误：\n    ", err)
+
 
 if __name__ == '__main__':
     main()
