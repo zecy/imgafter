@@ -1,24 +1,46 @@
 # _*_ coding: utf-8 _*_
+"""
+对图片集进行打包，通过 ``imgafter.py`` 调用。
+
+包含方法：
+
+    @zip_cur_imgs()
+        打包当前目录下所有图片，并把压缩包移到上级目录，压缩包名称为目录名称。
+
+    @zip_sub_dir_imgs(path=".")
+        打包 `path` 下所有纯图片文件夹。
+        纯图片文件夹条件：
+            1.不为空；
+            2.文件全部为图片；
+            3.不包含子文件夹。
+"""
 
 import zipfile
 import os
-import rename
+import basefunc
 
 
 def main():
-    print("通过外部调用")
+    print(__doc__)
 
 
 def cur_images(path):
-    return rename.parseimgs(path)
+    """返回 path 下的所有图片"""
+    return basefunc.parseimgs(path)
 
 
 def cur_dir_name():
+    """返回当前目录的名称"""
     return os.getcwd().split('/')[-1]
 
 
+def parent_dir_name():
+    """返回当父目录的名称"""
+    return os.getcwd().split('/')[-2]
+
+
 def zip_cur_imgs():
-    ''' 打包当前目录下所有图片，并把压缩包移到上级目录，压缩包名称为目录名称。 '''
+    """ 打包当前目录下所有图片，并把压缩包移到上级目录，压缩包名称为目录名称。 """
     zip_file_name = cur_dir_name() + '.zip'
     cur_imgs = cur_images('.')
     try:
