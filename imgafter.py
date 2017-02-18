@@ -150,7 +150,7 @@ def command_switcher(command_bundle):
         else:
             rename.renamemap(command_dir, command_mapname)
     if command_name == "zip":
-        zipimgs.zip_cur_imgs()
+        zipimgs.zip_cur_imgs(command_dir)
     if command_name == "zipall":
         zipimgs.zip_sub_dir_imgs()
 
