@@ -8,6 +8,7 @@
 
 import os
 import re
+import basefunc
 
 
 def main():
@@ -26,30 +27,6 @@ def main():
             通过对译表重命名 path 下所有图片文件。""")
 
 
-def img_pat():
-    ''' 返回图片后缀名
-    img_pat()['dot'] = ('.jpg','.png',...)
-    img_pat()['nodot'] = ('jpg','png',...)
-    '''
-    return{
-        "dot": ('.jpg', '.jpeg', '.png', '.bmp', '.tif'),
-        "nodot": ('jpg', 'jpeg', 'png', 'bmp', 'tif')
-    }
-
-
-def is_img(file_name):
-    ''' 判断文件是否图片，返回 True 或 False '''
-    return file_name.endswith(img_pat()['dot'])
-
-
-def parseimgs(path):
-    ''' 分析 path 中有多少图片，返回图片 list '''
-    files = next(os.walk(path))[2]
-    images = [f for f in files if is_img(f)]
-    if len(images) == 0:
-        print("错误：没有图片")
-        return "err"
-    return images
 
 
 def leftpad(src, length):
@@ -115,7 +92,7 @@ def renamemap(path, map_file_name='map'):
 
         if check_map_format(src_dst_list) == 'ok':
             map_images = [x.split(' ')[0] for x in src_dst_list]
-            dir_images = parseimgs(path)
+            dir_images = basefunc.parseimgs(path)
         else:
             print(
                 "\n[格式错误]\n" +
@@ -189,8 +166,8 @@ def map_dir_difference(map_list, dir_list, map_file_name):
 
 
 def check_map_format(map_lines_list):
-    ''' 检查对译表格式是否正确 '''
-    img_suffix = '|'.join(img_pat()['nodot'])
+    """ 检查对译表格式是否正确 """
+    img_suffix = '|'.join(basefunc.img_pat()['nodot'])
     map_pattern = re.compile(r"^.*?\.(" + img_suffix + r") .*?\1$")
 
     err_line_content = []
