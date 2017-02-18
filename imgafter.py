@@ -151,12 +151,21 @@ def command_switcher(command_bundle):
 
 
 def exe_command(argv):
+    """
+    根据参数执行命令
+
+    控制函数，用于同一调用 ``command_getter`` 和 ``command_switcher`` 两个方法。
+    """
     command_bundle = command_getter(argv)
     command_switcher(command_bundle)
 
 
 def main(argv):
-    """ 主函数 """
+    """
+    主函数
+
+    默认执行的函数，用于接受命令行参数并调用 ``exe_command``，参数有问题时抛出错误。
+    """
     try:
         exe_command(argv)
     except getopt.GetoptError:
