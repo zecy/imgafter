@@ -83,15 +83,19 @@ def zip_sub_dir_imgs(path="."):
             print("找不到目录：\n    ", img_dir)
 
     print("\n[压缩结果]\n\n" +
-          "    共 " + str(len(sub_dirs)) + " 个文件夹，成功压缩 " + str(zip_count) + " 个文件夹。\n\n" +
-          "[未处理文件夹]\n\n" +
-          "    本命令只支持纯图片文件夹，因此以下文件夹未被压缩，如果它们是目标文件夹，请检查：\n\n" +
-          "        " + "\n        ".join(no_img_dirs) + "\n\n" +
-          "    纯图片文件夹条件：\n\n" +
-          "        1.不为空；2.文件全部为图片；3.不包含子文件夹。\n\n" +
-          "[忽略文件夹]\n\n"
-          "    以下文件夹已经被压缩，因此未被处理。如果你希望重新压缩，请先删除原同名压缩包：\n\n" +
-          "        " + "\n        ".join(dir_already_zip))
+          "    共 " + str(len(sub_dirs)) + " 个文件夹，成功压缩 " + str(zip_count) + " 个文件夹。\n")
+
+    if len(no_img_dirs) > 0:
+        print("[未处理文件夹]\n\n" +
+              "    本命令只支持纯图片文件夹，因此以下文件夹未被压缩，如果它们是目标文件夹，请检查：\n\n" +
+              "        " + "\n        ".join(no_img_dirs) + "\n\n" +
+              "    纯图片文件夹条件：\n\n" +
+              "        1.不为空；2.文件全部为图片；3.不包含子文件夹。\n")
+
+    if len(dir_already_zip) > 0:
+        print("[忽略文件夹]\n\n"
+              "    以下文件夹已经被压缩，因此未被处理。如果你希望重新压缩，请先删除原同名压缩包：\n\n" +
+              "        " + "\n        ".join(dir_already_zip))
 
 if __name__ == '__main__':
     main()
