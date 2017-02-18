@@ -14,6 +14,9 @@
       zip     打包当前目录下所有图片，并把压缩包移到上一级目录。
               压缩包名称为目录名称。
 
+      zipall  分别打包当前目录下的纯图片文件夹，每个文件夹为一个
+              压缩包，压缩包名成为文件夹名称。
+
       [参数]
 
       -m : 文件名对译表，默认为 `map` ，一个无后缀名的纯文本文件
@@ -148,6 +151,8 @@ def command_switcher(command_bundle):
             rename.renamemap(command_dir, command_mapname)
     if command_name == "zip":
         zipimgs.zip_cur_imgs()
+    if command_name == "zipall":
+        zipimgs.zip_sub_dir_imgs()
 
 
 def exe_command(argv):
